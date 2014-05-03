@@ -5,6 +5,7 @@ import javax.ejb.EJB;
 import javax.faces.bean.RequestScoped;
 import javax.inject.Named;
 import studyscheduler.ejb.UserFacade;
+import studyscheduler.entity.User;
 
 @Named
 @RequestScoped
@@ -16,7 +17,7 @@ public class UserBean implements Serializable {
     public UserBean() {
     }
     
-    public String getUsername() {
-        return user.getUser().getUsername();
+    public User getUser() {
+        return user.getUser();
     }
 }

@@ -40,7 +40,6 @@ public class Course implements Serializable {
     @JoinColumn(name="USERID")
     private User user;
     
-    /*
     @OneToMany(cascade=ALL)
     @JoinTable(
             name="EXAMS",
@@ -56,7 +55,6 @@ public class Course implements Serializable {
             inverseJoinColumns=@JoinColumn(name="EVENTID")
     )    
     private List<Event> events;
-    */
     
     public Long getId() {
         return id;
@@ -98,7 +96,6 @@ public class Course implements Serializable {
         this.user = user;
     }
 
-    /*
     public List<Exam> getExams() {
         return exams;
     }
@@ -114,7 +111,6 @@ public class Course implements Serializable {
     public void setEvents(List<Event> events) {
         this.events = events;
     }
-    */
     
     @Override
     public int hashCode() {
@@ -125,7 +121,6 @@ public class Course implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Course)) {
             return false;
         }

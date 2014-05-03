@@ -20,7 +20,6 @@ public class UserFacade extends AbstractFacade<User> {
     }
     
     public User getUser() {
-        User user = (User) em.find(User.class, 1L);
-        return user;
+        return em.find(User.class, 1L);
     }
 }

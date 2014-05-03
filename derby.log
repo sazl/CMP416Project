@@ -19,3 +19,12 @@ java.runtime.version=1.7.0_55-b14
 user.dir=/home/sami/Applications/glassfish-4.0/javadb
 derby.system.home=/home/sami/Programming/internet_network/Project
 Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+Sun May 04 00:13:31 GST 2014: Shutting down Derby engine
+----------------------------------------------------------------
+Sun May 04 00:13:31 GST 2014:
+Shutting down instance 94bc40a2-0145-c2d3-d549-ffffbf4336f4 on database directory /home/sami/Programming/internet_network/Project/studyscheduler with class loader sun.misc.Launcher$AppClassLoader@6521f956 
+----------------------------------------------------------------
+Sun May 04 00:13:31 GST 2014:
+Shutting down instance a816c00e-0145-c2d3-d549-ffffbf4336f4 on database directory /home/sami/Programming/internet_network/Project/sun-appserv-samples with class loader sun.misc.Launcher$AppClassLoader@6521f956 
+----------------------------------------------------------------

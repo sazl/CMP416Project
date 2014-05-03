@@ -16,22 +16,23 @@
             <ui:insert name="menu">
                 <h:form>
                     <p:growl id="messages"/>
-                    <p:toolbar style="width: 75%; margin: 0 auto">
-                        <p:toolbarGroup align="left">
-                            <p:link value="Home" outcome="index"/>
+                    <p:toolbar style="width: 75%; margin: 0 auto; margin-bottom: 40px">
+                        <f:facet name="left">
+                            <p:commandButton value="Home" action="index?faces-redirect=true" styleClass="ui-priority-primary"/>
                             <span class="ui-separator">
                                 <span class="ui-icon ui-icon-grip-dotted-vertical" />
                             </span>
-                            <p:link value="Schedule" outcome="schedule"/>
+                            <p:commandButton value="Schedule" action="schedule?faces-redirect=true"/>
+                            <p:commandButton value="Timeline" action="timeline?faces-redirect=true"/>
                             <span class="ui-separator">
                                 <span class="ui-icon ui-icon-grip-dotted-vertical" />
                             </span>
-                            <p:link value="Grades" outcome="grades"/>
-                            <p:link value="Study" outcome="study"/>
-                        </p:toolbarGroup>
-                        <p:toolbarGroup align="right">
-                            <p:commandButton type="button" value="Logout" icon="ui-icon-cancel"/>
-                        </p:toolbarGroup>
+                            <p:commandButton value="Grades" action="grades?faces-redirect=true"/>
+                            <p:commandButton value="Study" action="study?faces-redirect=true"/>
+                        </f:facet>
+                        <f:facet name="right">
+                            <p:commandButton type="button" value="Logout" icon="ui-icon-cancel" style="color: darkred"/>
+                        </f:facet>
                     </p:toolbar>
                 </h:form>
             </ui:insert>

@@ -18,7 +18,7 @@ public class CourseBean {
     public CourseBean() {
     }
 
-    public List<Course> getCourses() throws SQLException {
+    public List<Course> getCourses() {
         return course.getCourses();
     }
 

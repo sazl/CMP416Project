@@ -12,12 +12,34 @@
     <h:body>
         <ui:composition template="template/main.xhtml">
             <ui:define name="content">
-                <h:dataTable value="#{courseBean.courses}" var="c">
-                    <h:column>
-                        <f:facet name="header">Name</f:facet>
-                        <h:outputText value="#{c.name}"/>
-                    </h:column>
-                </h:dataTable>
+                <p:panelGrid style="width: 50%; margin: 0 auto">
+                    <f:facet name="header">
+                        <p:row>
+                            <p:column styleClass="ui-widget-header">ID</p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column><p:outputLabel value="#{userBean.user.id}"/></p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column styleClass="ui-widget-header">Username</p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>#{userBean.user.username}</p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column styleClass="ui-widget-header">First Name</p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>#{userBean.user.firstname}</p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column styleClass="ui-widget-header">Last Name</p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>#{userBean.user.lastname}</p:column>
+                        </p:row>
+                    </f:facet>                    
+                </p:panelGrid>
             </ui:define>
         </ui:composition>
     </h:body>

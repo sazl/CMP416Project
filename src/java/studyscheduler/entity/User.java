@@ -34,7 +34,6 @@ public class User implements Serializable {
     @OneToMany(mappedBy="user")
     private List<Course> courses;
     
-    /*
     @OneToMany(cascade=ALL)
     @JoinTable(
             name="STUDY_SCHEDULES",
@@ -42,7 +41,7 @@ public class User implements Serializable {
             inverseJoinColumns=@JoinColumn(name="EVENTID")
     )
     private List<Event> events;
-*/
+    
     public Long getId() {
         return id;
     }
@@ -91,7 +90,6 @@ public class User implements Serializable {
         this.courses = courses;
     }
 
-    /*
     public List<Event> getEvents() {
         return events;
     }
@@ -99,8 +97,6 @@ public class User implements Serializable {
     public void setEvents(List<Event> events) {
         this.events = events;
     }
-
-    */
     
     @Override
     public int hashCode() {

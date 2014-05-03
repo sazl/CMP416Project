@@ -10,15 +10,6 @@
         <title>Study Scheduler</title>
     </h:head>
     <h:body>
-        <ui:composition template="template/main.xhtml">
-            <ui:define name="content">
-                <h:dataTable value="#{courseBean.courses}" var="c">
-                    <h:column>
-                        <f:facet name="header">Name</f:facet>
-                        <h:outputText value="#{c.name}"/>
-                    </h:column>
-                </h:dataTable>
-            </ui:define>
-        </ui:composition>
+
     </h:body>
 </html>

@@ -1,3 +1,11 @@
+drop table course_schedules;
+drop table study_schedules;
+drop table exams;
+drop table events;
+drop table courses;
+drop table users;
+
+
 create table users (
     id        integer not null generated always as identity (start with 1, increment by 1),
     username  varchar(255) unique,
@@ -13,11 +21,11 @@ create table events (
     description    varchar(255),
     startdate      timestamp not null,
     enddate        timestamp not null,
-    repeat         boolean default false,
+    repeated       boolean default false,
     repeattype     varchar(255),
     repeatend      timestamp,
 
-    check (startdate > enddate),
+    constraint validate_date_range check (startdate < enddate),
     primary key (id)
 );
 
@@ -40,8 +48,8 @@ create table exams (
     grade          real default 0.0,
 
     primary key (courseid, eventid),
-    foreign key (courseid) references courses (id),
-    foreign key (eventid) references events (id)
+    constraint exams_courseid_fk foreign key (courseid) references courses (id),
+    constraint exams_eventid_fk foreign key (eventid) references events (id)
 );
 
 create table course_schedules (
@@ -49,8 +57,8 @@ create table course_schedules (
     eventid  integer,
     
     primary key (courseid, eventid),
-    foreign key (courseid) references courses (id),
-    foreign key (eventid) references events (id)
+    constraint course_schedule_courseid_fk foreign key (courseid) references courses (id),
+    constraint course_schedule_eventid_fk foreign key (eventid) references events (id)
 );
 
 create table study_schedules (

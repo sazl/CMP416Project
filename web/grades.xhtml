@@ -12,7 +12,8 @@
     <h:body>
         <ui:composition template="template/main.xhtml">
             <ui:define name="content">
-                <p:dataTable var="course" value="#{courseBean.courses}" style="width: 50%; margin: 0 auto">
+                <p:dataTable var="course" value="#{courseBean.courses}"
+                             style="width: 50%; margin: 0 auto">
                     <p:column headerText="Name">
                         <h:outputText value="#{course.name}" />
                     </p:column>

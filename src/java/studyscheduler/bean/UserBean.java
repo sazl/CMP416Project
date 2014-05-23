@@ -2,12 +2,12 @@ package studyscheduler.bean;
 
 import java.io.Serializable;
 import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.inject.Named;
 import studyscheduler.ejb.UserFacade;
 import studyscheduler.entity.User;
 
-@Named
+@ManagedBean
 @RequestScoped
 public class UserBean implements Serializable {
 

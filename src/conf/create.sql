@@ -1,11 +1,3 @@
-drop table course_schedules;
-drop table study_schedules;
-drop table exams;
-drop table events;
-drop table courses;
-drop table users;
-
-
 create table users (
     id        integer not null generated always as identity (start with 1, increment by 1),
     username  varchar(255) unique,

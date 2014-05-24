@@ -4,26 +4,25 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <title>Study Scheduler</title>
-    </h:head>
-    <h:body>
-        <ui:composition template="/resources/template/user-main.xhtml">
-            <ui:define name="content">
-                <p:dataTable var="course" value="#{courseBean.courses}"
-                             style="text-align: center"
-                             styleClass="inner-content">
-                    <p:column headerText="Name">
-                        <h:outputText value="#{course.name}" />
-                    </p:column>
-                    <p:column headerText="Priority">
-                        <h:outputText value="#{course.priority}" />
-                    </p:column>
-                    <p:column headerText="GPA">
-                        <h:outputText value="#{course.gpa}" />
-                    </p:column>
-                </p:dataTable>
-            </ui:define>
-        </ui:composition>
-    </h:body>
+
+    <ui:composition template="/resources/template/user-main.xhtml">
+        <ui:define name="title">
+            <title>Grades</title>
+        </ui:define>
+        <ui:define name="content">
+            <p:dataTable var="course" value="#{courseBean.courses}"
+                         style="text-align: center"
+                         styleClass="inner-content">
+                <p:column headerText="Name">
+                    <h:outputText value="#{course.name}" />
+                </p:column>
+                <p:column headerText="Priority">
+                    <h:outputText value="#{course.priority}" />
+                </p:column>
+                <p:column headerText="GPA">
+                    <h:outputText value="#{course.gpa}" />
+                </p:column>
+            </p:dataTable>
+        </ui:define>
+    </ui:composition>
 </html>

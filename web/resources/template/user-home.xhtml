@@ -10,14 +10,14 @@
         <f:view>
             <ui:composition template="/resources/template/user-main.xhtml">
                 <ui:define name="local-menu">
-                    <h:form>
-                        <p:tabMenu activeIndex="#{sessionBean.homeTab}">
-                            <p:menuitem value="Profile" outcome="home" action="#{sessioBean.setHomeTab(0)}"/>
-                            <p:menuitem value="Classes" outcome="home-classes" action="#{sessioBean.setHomeTab(1)}"/>
-                            <p:menuitem value="Exams" outcome="home-exams" action="#{sessioBean.setHomeTab(2)}"/>
-                            <p:menuitem value="Study" outcome="home-study" action="#{sessioBean.setHomeTab(3)}"/>
-                        </p:tabMenu>
-                    </h:form>
+
+                    <p:tabMenu activeIndex="#{sessionBean.homeTab}">
+                        <p:menuitem value="Profile" outcome="home" action="#{sessioBean.setHomeTab(0)}"/>
+                        <p:menuitem value="Classes" outcome="home-classes" action="#{sessioBean.setHomeTab(1)}"/>
+                        <p:menuitem value="Exams" outcome="home-exams" action="#{sessioBean.setHomeTab(2)}"/>
+                        <p:menuitem value="Study" outcome="home-study" action="#{sessioBean.setHomeTab(3)}"/>
+                    </p:tabMenu>
+
                 </ui:define>
             </ui:composition>
         </f:view>

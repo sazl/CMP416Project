@@ -6,12 +6,17 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 
-        <ui:composition template="/resources/template/user-home.xhtml">
-            <ui:define name="title">
-                <title>Home</title>
-            </ui:define>
-            
-            <ui:define name="content">
+    <ui:composition template="/resources/template/user-home.xhtml">
+        <ui:define name="title">
+            <title>Home</title>
+        </ui:define>
+        <ui:define name="content">
+                <p:toolbar styleClass="header">
+                    <f:facet name="left">
+                        <p:commandButton type="button" value="Edit Profile" onclick="PF('examEditDialog').show()"/>
+                        <p:commandButton type="submit" value="Delete Exam" actionListener="#{examBean.deleteSelectedExam}" immediate="true" ajax="false"/>
+                    </f:facet>
+                </p:toolbar>
                 <p:panelGrid styleClass="inner-content" style="text-align: center">
                     <p:row>
                         <p:column styleClass="ui-widget-header">ID</p:column>
@@ -38,6 +43,6 @@
                         <p:column>#{userBean.user.lastname}</p:column>
                     </p:row>
                 </p:panelGrid>
-            </ui:define>
-        </ui:composition>
+        </ui:define>
+    </ui:composition>
 </html>

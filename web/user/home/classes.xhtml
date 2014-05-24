@@ -5,127 +5,134 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <h:body>
-        <f:view>
-            <ui:composition template="/resources/template/user-home.xhtml">
-                <ui:define name="title">
-                    <title>Classes</title>
-                </ui:define>
 
-                <ui:define name="content">
-                    <h:form>
-                        
-                        <p:contextMenu for="courses">
-                            <p:menuitem value="Edit" update="courseEditDetail" icon="ui-icon-search" oncomplete="PF('courseEditDialog').show()"/>
-                            <p:menuitem value="Delete" update="courses" icon="ui-icon-close" actionListener="#{courseBean.deleteSelectedCourse}" immediate="true" ajax="false"/>
-                        </p:contextMenu>
+    <ui:composition template="/resources/template/user-home.xhtml">
+        <ui:define name="title">
+            <title>Classes</title>
+        </ui:define>
 
-                        <p:toolbar styleClass="header">
-                            <f:facet name="left">
-                                <p:commandButton type="button" value="Add Course" onclick="PF('courseAddDialog').show()"/>
-                                <p:commandButton type="button" value="Edit Course" onclick="PF('courseEditDialog').show()"/>
-                                <p:commandButton type="submit" value="Delete Course" actionListener="#{courseBean.deleteSelectedCourse}" immediate="true" ajax="false"/>
-                            </f:facet>
-                        </p:toolbar>
+        <ui:define name="content">
 
-                        <p:dataTable id="courses" var="course" value="#{courseBean.courses}"
-                                     style="text-align: center; margin-top: 10px"
-                                     rowKey="#{course.id}"
-                                     selection="#{courseBean.selectedCourse}"
-                                     styleClass="inner-content">
-                            <p:column headerText="Choice" selectionMode="single"/>
 
-                            <p:column headerText="Name">
-                                <h:outputText value="#{course.name}" />
-                            </p:column>
-                            <p:column headerText="Priority">
-                                <h:outputText value="#{course.priority}" />
-                            </p:column>
-                            <p:column headerText="GPA">
-                                <h:outputText value="#{course.gpa}" />
-                            </p:column>
-                        </p:dataTable>
+            <p:toolbar styleClass="header">
+                <f:facet name="left">
+                    <p:commandButton type="button" value="Add Course" immediate="true" onclick="PF('courseAddDialog').show()"/>
+                    <p:commandButton type="submit" value="Edit Course"
+                                     actionListener="#{courseBean.prepareEdit}"
+                                     ajax="false"
+                                     immediate="true"/>
+                    <p:commandButton type="submit" value="Delete Course" actionListener="#{courseBean.deleteSelectedCourse}" immediate="true" ajax="false"/>
+                </f:facet>
+            </p:toolbar>
 
-                        <p:dialog widgetVar="courseEditDialog" header="Edit Course" showEffect="clip" hideEffect="clip">
-                            <h:panelGrid id="courseEditDetail" columns="2">
-                                <h:outputLabel for="editName" value="Name:"/>
-                                <p:inputText id="editName" value="#{courseBean.selectedCourse.name}" required="true">
-                                    <f:validateRegex pattern="[A-Z]{3}[0-9]{3}"/>
-                                </p:inputText>
 
-                                <h:outputLabel for="editPriority" value="Priority:" />
-                                <p:inputText id="editPriority" value="#{courseBean.selectedCourse.priority}" required="true">
-                                    <f:validateDoubleRange for="priority" minimum="1.0" maximum="10.0"/>
-                                </p:inputText>
+            <p:dataTable id="courses" binding="#{courseBean.courseDataTable}"
+                         var="course" value="#{courseBean.courses}"
+                         style="text-align: center; margin-top: 10px"
+                         rowKey="#{course.id}"
+                         selectionMode="single"
+                         styleClass="inner-content">
+                <p:column headerText="ID">
+                    <h:outputText value="#{course.id}"/>
+                </p:column>
 
-                                <h:outputLabel for="editStartTime" value="Start Time:" />
-                                <p:calendar id="editStartTime" value="#{courseBean.selectedCourseEvent.startdate}" pattern="MM/dd/yyyy HH:mm:ss">
+                <p:column headerText="Name">
+                    <h:outputText value="#{course.name}" />
+                </p:column>
+                <p:column headerText="Priority">
+                    <h:outputText value="#{course.priority}" />
+                </p:column>
+                <p:column headerText="GPA">
+                    <h:outputText value="#{course.gpa}" />
+                </p:column>
+            </p:dataTable>
 
-                                </p:calendar>
 
-                                <h:outputLabel for="editEndTime" value="End Time:" />
-                                <p:calendar id="editEndTime" value="#{courseBean.selectedCourseEvent.enddate}" pattern="MM/dd/yyyy HH:mm:ss">
+            <p:dialog widgetVar="courseEditDialog" dynamic="true"
+                      header="Edit Course" showEffect="clip" hideEffect="clip">
 
-                                </p:calendar>
+                <h:panelGrid id="courseEditDetail" columns="2">
 
-                                <h:outputLabel for="editRepeated" value="Repeated:" />
-                                <h:selectBooleanCheckbox id="editRepeated" value="#{courseBean.selectedCourseEvent.repeated}" />
+                    <h:outputLabel for="editName" value="Name:"/>
+                    <p:inputText id="editName" value="#{courseBean.editedCourse.name}" required="true">
+                        <f:validateRegex pattern="[A-Z]{3}[0-9]{3}"/>
+                    </p:inputText>
 
-                                <h:outputLabel for="editRepeatDuration" value="Repeat Duration:" />
-                                <h:selectOneMenu id="editRepeatDuration" value="#{courseBean.selectedCourseEvent.repeattype}">
-                                    <f:selectItem itemLabel="Daily" itemValue="Daily"/>
-                                    <f:selectItem itemLabel="Weekly" itemValue="Weekly"/>
-                                    <f:selectItem itemLabel="Monthly" itemValue="Monthly"/>
-                                </h:selectOneMenu>
+                    <h:outputLabel for="editPriority" value="Priority:" />
+                    <p:inputText id="editPriority" value="#{courseBean.editedCourse.priority}" required="true">
+                        <f:validateDoubleRange for="priority" minimum="1.0" maximum="10.0"/>
+                    </p:inputText>
 
-                                <p:commandButton type="reset" value="Reset" />
-                                <p:commandButton type="submit" id="editButton" value="Save" actionListener="#{courseBean.editCourse}" immediate="true"
-                                                 oncomplete="PF('courses').update();PF('courseEditDialog').hide();"/>
-                            </h:panelGrid>
-                        </p:dialog>
+                    <h:outputLabel for="editStartTime" value="Start Time:" />
+                    <p:calendar id="editStartTime" value="#{courseBean.editedCourseEvent.startdate}" pattern="MM/dd/yyyy HH:mm:ss">
+                    </p:calendar>
 
-                        <p:dialog widgetVar="courseAddDialog" header="Add Course" showEffect="clip" hideEffect="clip">
-                            <h:panelGrid id="courseDetail" columns="2">
-                                <h:outputLabel for="name" value="Name:"/>
-                                <p:inputText id="name" value="#{courseBean.addedCourse.name}" required="true">
-                                    <f:validateRegex pattern="[A-Z]{3}[0-9]{3}"/>
-                                </p:inputText>
+                    <h:outputLabel for="editEndTime" value="End Time:" />
+                    <p:calendar id="editEndTime" value="#{courseBean.editedCourseEvent.enddate}" pattern="MM/dd/yyyy HH:mm:ss">
+                    </p:calendar>
 
-                                <h:outputLabel for="priority" value="Priority:" />
-                                <p:inputText id="priority" value="#{courseBean.addedCourse.priority}" required="true">
-                                    <f:validateDoubleRange for="priority" minimum="1.0" maximum="10.0"/>
-                                </p:inputText>
+                    <h:outputLabel for="editRepeated" value="Repeated:" />
+                    <h:selectBooleanCheckbox id="editRepeated" value="#{courseBean.editedCourseEvent.repeated}" />
 
-                                <h:outputLabel for="startTime" value="Start Time:" />
-                                <p:calendar id="startTime" value="#{courseBean.addedCourseEvent.startdate}" pattern="MM/dd/yyyy HH:mm:ss">
-                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                                </p:calendar>
+                    <h:outputLabel for="editRepeatDuration" value="Repeat Duration:" />
+                    <h:selectOneMenu id="editRepeatDuration" value="#{courseBean.editedCourseEvent.repeattype}">
+                        <f:selectItem itemLabel="Daily" itemValue="Daily"/>
+                        <f:selectItem itemLabel="Weekly" itemValue="Weekly"/>
+                        <f:selectItem itemLabel="Monthly" itemValue="Monthly"/>
+                    </h:selectOneMenu>
 
-                                <h:outputLabel for="endTime" value="End Time:" />
-                                <p:calendar id="endTime" value="#{courseBean.addedCourseEvent.enddate}" pattern="MM/dd/yyyy HH:mm:ss">
-                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                                </p:calendar>
 
-                                <h:outputLabel for="repeated" value="Repeated:" />
-                                <h:selectBooleanCheckbox id="repeated" value="#{courseBean.addedCourseEvent.repeated}" />
+                    <p:commandButton type="reset" value="Reset" />
+                    <p:commandButton type="submit" id="editButton" value="Save"
+                                     actionListener="#{courseBean.editCourse}" immediate="true" ajax="false"/>
 
-                                <h:outputLabel for="repeatDuration" value="Repeat Duration:" />
-                                <h:selectOneMenu id="repeatDuration" value="#{courseBean.addedCourseEvent.repeattype}">
-                                    <f:selectItem itemLabel="Daily" itemValue="daily"/>
-                                    <f:selectItem itemLabel="Weekly" itemValue="weekly"/>
-                                    <f:selectItem itemLabel="Monthly" itemValue="monthly"/>
-                                </h:selectOneMenu>
+                </h:panelGrid>
+            </p:dialog>
 
-                                <p:commandButton type="reset" value="Reset" />
-                                <p:commandButton id="addButton" value="Save" actionListener="#{courseBean.addCourse}" immediate="true"
-                                                 oncomplete="PF('courses').update();PF('courseAddDialog').hide();"/>
-                            </h:panelGrid>
-                        </p:dialog>
 
-                    </h:form>
-                </ui:define>
-            </ui:composition>
-        </f:view>
-    </h:body>
+            <p:dialog widgetVar="courseAddDialog" dynamic="true"
+                      header="Add Course" showEffect="clip" hideEffect="clip">
+
+                <h:panelGrid id="courseDetail" columns="2">
+
+                    <h:outputLabel for="name" value="Name:"/>
+                    <p:inputText id="name" value="#{courseBean.addedCourse.name}" required="true">
+                        <f:validateRegex pattern="[A-Z]{3}[0-9]{3}"/>
+                    </p:inputText>
+
+                    <h:outputLabel for="priority" value="Priority:" />
+                    <p:inputText id="priority" value="#{courseBean.addedCourse.priority}" required="true">
+                        <f:validateDoubleRange for="priority" minimum="1.0" maximum="10.0"/>
+                    </p:inputText>
+
+                    <h:outputLabel for="startTime" value="Start Time:" />
+                    <p:calendar id="startTime" value="#{courseBean.addedCourseEvent.startdate}" pattern="MM/dd/yyyy HH:mm:ss">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </p:calendar>
+
+                    <h:outputLabel for="endTime" value="End Time:" />
+                    <p:calendar id="endTime" value="#{courseBean.addedCourseEvent.enddate}" pattern="MM/dd/yyyy HH:mm:ss">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </p:calendar>
+
+                    <h:outputLabel for="repeated" value="Repeated:" />
+                    <h:selectBooleanCheckbox id="repeated" value="#{courseBean.addedCourseEvent.repeated}" />
+
+                    <h:outputLabel for="repeatDuration" value="Repeat Duration:" />
+                    <h:selectOneMenu id="repeatDuration" value="#{courseBean.addedCourseEvent.repeattype}">
+                        <f:selectItem itemLabel="Daily" itemValue="daily"/>
+                        <f:selectItem itemLabel="Weekly" itemValue="weekly"/>
+                        <f:selectItem itemLabel="Monthly" itemValue="monthly"/>
+                    </h:selectOneMenu>
+
+
+                    <p:commandButton type="reset" value="Reset" />
+                    <p:commandButton id="addButton" value="Save" type="submit" update="courseDetail"
+                                     actionListener="#{courseBean.addCourse}" immediate="true"/>
+
+                </h:panelGrid>
+            </p:dialog>
+        </ui:define>
+    </ui:composition>
 </html>
 

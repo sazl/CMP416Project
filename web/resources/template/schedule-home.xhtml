@@ -43,46 +43,11 @@
                             <p:ajax event="eventSelect" listener="#{scheduleBean.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show()" />
                             <p:ajax event="eventMove" listener="#{scheduleBean.onEventMove}" update="messages" />
                             <p:ajax event="eventResize" listener="#{scheduleBean.onEventResize}" update="messages" />
-
                         </p:schedule>
 
                         <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
 
                             <h:panelGrid id="eventDetails" columns="2">
-                                <!--
-                                                                                <h:outputLabel for="title" value="Title:" />
-                                                                                <p:inputText id="title" value="#{scheduleController.event.title}" required="true"/>
-                                                    
-                                                                                <h:outputLabel for="from" value="From Date:" />
-                                                                                <p:calendar id="from" value="#{scheduleController.event.startDate}"/>
-                                                    
-                                                                                <h:outputLabel for="startTime" value="Start Time:" />
-                                                                                <p:inputMask id="startTime" value="#{scheduleController.event.startDate}" mask="99:99">
-                                                                                    <f:convertDateTime pattern="hh:mm" />
-                                                                                </p:inputMask>
-                                                    
-                                                                                <h:outputLabel for="to" value="To Date:" />
-                                                                                <p:calendar id="to" value="#{scheduleController.event.endDate}"/>
-                                                    
-                                                                                <h:outputLabel for="endTime" value="End Time:" />
-                                                                                <p:inputMask id="endTime" value="#{scheduleController.event.endDate}" mask="99:99">
-                                                                                    <f:convertDateTime pattern="hh:mm" />
-                                                                                </p:inputMask>
-                                                    
-                                                                                <h:outputLabel for="repeated" value="Repeated:" />
-                                                                                <h:selectBooleanCheckbox id="repeated" value="#{scheduleController.event.repeated}" />
-                                                    
-                                                                                <h:outputLabel for="repeatDuration" value="Repeat Duration:" />
-                                                                                <h:selectOneMenu id="repeatDuration" value="#{scheduleController.repeatDuration}">
-                                                                                    <f:selectItem itemLabel="Daily" itemValue="Daily"/>
-                                                                                    <f:selectItem itemLabel="Weekly" itemValue="Weekly"/>
-                                                                                    <f:selectItem itemLabel="Monthly" itemValue="Monthly"/>
-                                                                                </h:selectOneMenu>
-                                                    
-                                                                                <p:commandButton type="reset" value="Reset" />
-                                                                                <p:commandButton id="addButton" value="Save" actionListener="#{scheduleController.addEvent}"
-                                                                                                 oncomplete="PF('allSchedule').update();PF('eventDialog').hide();"/>
-                                -->
                             </h:panelGrid>
 
                         </p:dialog>

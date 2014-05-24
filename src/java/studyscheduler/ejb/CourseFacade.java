@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import studyscheduler.entity.Course;
+import studyscheduler.entity.Event;
 
 @Stateless
 public class CourseFacade extends AbstractFacade<Course> {
@@ -26,5 +27,14 @@ public class CourseFacade extends AbstractFacade<Course> {
         Query q = em.createNamedQuery("Course.findAll");
         List<Course> res = q.getResultList();
         return res;
+    }
+    
+    public void setCourses(List<Course> courses) {
+    }
+    
+    public void editCourse(Course course, Event event) {
+        Course c = em.merge(course);
+        System.out.println(c.getPriority());
+        em.refresh(c);
     }
 }

@@ -5,27 +5,23 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:pe="http://primefaces.org/ui/extensions">
-    <h:head>
-        <title>Study Scheduler</title>
-    </h:head>
-    <h:body>
-        <ui:composition template="/resources/template/user-main.xhtml">
-            <ui:define name="content">
-                <h:form>
-                    <p:growl id="growl" showSummary="true" showDetail="true" autoUpdate="true"/>
 
-                    <pe:timeline id="timeline" value="#{timelineBean.model}" height="650px"  
-                                 selectable="#{timelineBean.selectable}"  
-                                 zoomable="#{timelineBean.zoomable}"  
-                                 moveable="#{timelineBean.moveable}"  
-                                 stackEvents="#{timelineBean.stackEvents}"  
-                                 axisOnTop="#{timelineBean.axisOnTop}"               
-                                 eventStyle="#{timelineBean.eventStyle}"  
-                                 showCurrentTime="#{timelineBean.showCurrentTime}"  
-                                 showNavigation="#{timelineBean.showNavigation}">
-                        <p:ajax event="select" listener="#{timelineBean.onSelect}"/>  
-                    </pe:timeline>  
-                </h:form>
+        <ui:composition template="/resources/template/user-main.xhtml">
+            <ui:define name="title">
+                <title>Timeline</title>
+            </ui:define>
+            <ui:define name="content">
+                <pe:timeline id="timeline" value="#{timelineBean.model}" height="650px"  
+                             selectable="#{timelineBean.selectable}"  
+                             zoomable="#{timelineBean.zoomable}"  
+                             moveable="#{timelineBean.moveable}"  
+                             stackEvents="#{timelineBean.stackEvents}"  
+                             axisOnTop="#{timelineBean.axisOnTop}"               
+                             eventStyle="#{timelineBean.eventStyle}"  
+                             showCurrentTime="#{timelineBean.showCurrentTime}"  
+                             showNavigation="#{timelineBean.showNavigation}">
+                    <p:ajax event="select" listener="#{timelineBean.onSelect}"/>  
+                </pe:timeline>
                 <h:outputStylesheet id="timelineCSS">  
                     table .formColumn {
                     padding: 0 5px 0 20px;  
@@ -35,5 +31,4 @@
                 </h:outputStylesheet>
             </ui:define>
         </ui:composition>
-    </h:body>
 </html>

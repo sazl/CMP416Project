@@ -2,6 +2,7 @@ package studyscheduler.bean;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -13,8 +14,8 @@ import studyscheduler.ejb.UserFacade;
 import studyscheduler.entity.Course;
 import studyscheduler.entity.Event;
 
-@ManagedBean(name = "courseBean")
 @SessionScoped
+@ManagedBean(name = "courseBean")
 public class CourseBean implements Serializable {
 
     @EJB
@@ -23,18 +24,19 @@ public class CourseBean implements Serializable {
     private CourseFacade course;
 
     public CourseBean() {
-        this.addedCourse = new Course();
-        this.addedCourseEvent = new Event();
-        this.selectedCourse = new Course();
-
+    }
+    
+    @PostConstruct
+    public void initialize() {
+        this.cachedCourses = course.getCourses();
     }
 
     public List<Course> getCourses() {
-        return course.getCourses();
+        return cachedCourses;
     }
 
     public void setCourses(List<Course> courses) {
-
+        this.cachedCourses = courses;
     }
 
     public Course getAddedCourse() {
@@ -70,8 +72,6 @@ public class CourseBean implements Serializable {
         }
     }
 
-    
-    
     public Course getSelectedCourse() {
         return selectedCourse;
     }
@@ -91,10 +91,12 @@ public class CourseBean implements Serializable {
     public void editCourse(ActionEvent e) {
 
     }
+    
+    private List<Course> cachedCourses;
+    
+    private Course addedCourse;
+    private Event addedCourseEvent;
 
-    public Course addedCourse;
-    public Event addedCourseEvent;
-
-    public Course selectedCourse;
-    public Event selectedCourseEvent;
+    private Course selectedCourse;
+    private Event selectedCourseEvent;
 }

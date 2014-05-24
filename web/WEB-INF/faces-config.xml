@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>home</from-outcome>
+            <to-view-id>/user/home.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>schedule</from-outcome>
+            <to-view-id>/user/schedule.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>grades</from-outcome>
+            <to-view-id>/user/grades.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>    
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>timeline</from-outcome>
+            <to-view-id>/user/timeline.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>study</from-outcome>
+            <to-view-id>/user/study.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>home-classes</from-outcome>
+            <to-view-id>/user/home/classes.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+        <navigation-rule>
+        <navigation-case>
+            <from-outcome>home-exams</from-outcome>
+            <to-view-id>/user/home/exams.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+</faces-config>

@@ -1,16 +1,25 @@
 package studyscheduler.entity;
 
 import java.io.Serializable;
+import java.util.List;
+import static javax.persistence.CascadeType.ALL;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="EXAMS")
+@NamedQueries({
+    @NamedQuery(name="Exam.findAll", query="SELECT e from Exam e")
+})
 public class Exam implements Serializable {
     private static final long serialVersionUID = 1L;
     
@@ -19,6 +28,14 @@ public class Exam implements Serializable {
     private Long id;
     private Double weight;
     private Double grade;
+    
+    @OneToMany(cascade=ALL)
+    @JoinTable(
+            name="EVENTS",
+            joinColumns=@JoinColumn(name="ID"),
+            inverseJoinColumns=@JoinColumn(name="EVENTID")
+    )
+    private List<Event> events;
     
     @ManyToOne
     @JoinColumn(name="COURSEID")
@@ -54,6 +71,14 @@ public class Exam implements Serializable {
 
     public void setCourse(Course course) {
         this.course = course;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
     }
     
     @Override

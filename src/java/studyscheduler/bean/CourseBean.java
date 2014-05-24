@@ -26,4 +26,17 @@ public class CourseBean {
 
     }
 
+    public void deleteSelectedCourse() {
+        
+    }
+
+    public Course getSelectedCourse() {
+        return selectedCourse;
+    }
+
+    public void setSelectedCourse(Course selectedCourse) {
+        this.selectedCourse = selectedCourse;
+    }
+    
+    public Course selectedCourse;
 }

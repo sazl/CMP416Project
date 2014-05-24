@@ -1,8 +1,10 @@
 package studyscheduler.ejb;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import studyscheduler.entity.Course;
 import studyscheduler.entity.User;
 
 @Stateless
@@ -20,6 +22,11 @@ public class UserFacade extends AbstractFacade<User> {
     }
     
     public User getUser() {
-        return em.find(User.class, 1L);
+        return em.find(User.class, 3L);
+    }
+    
+    public List<Course> getCourses() {
+        return em.createNamedQuery("User.findAll")
+                .getResultList();
     }
 }

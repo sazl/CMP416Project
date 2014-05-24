@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Exams</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/resources/template/user-home.xhtml">
+            <ui:define name="content">
+                <h:form>
+                    <p:dataTable var="study" value="#{userBean.user.eventsList}"
+                                 style="text-align: center; margin-top: 10px"
+                                 rowKey="#{study.id}"
+                                 selection="#{studyBean.selectedStudy}"
+                                 selectionMode="single"
+                                 styleClass="inner-content">
+                        <p:column headerText="Study Name" sortBy="#{study.name}">
+                            <h:outputText value="#{study.name}"/>                            
+                        </p:column>
+                        <p:column headerText="Description" sortBy="#{study.description}">
+                            <h:outputText value="#{study.description}"/>
+                        </p:column>
+                        <p:column headerText="Start Date" sortBy="#{study.startdate}">
+                            <h:outputText value="#{study.startdate}"/>
+                        </p:column>
+                        <p:column headerText="End Date" sortBy="#{study.enddate}">
+                            <h:outputText value="#{study.enddate}"/>
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

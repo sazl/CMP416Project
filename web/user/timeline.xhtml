@@ -14,7 +14,7 @@
                 <h:form>
                     <p:growl id="growl" showSummary="true" showDetail="true" autoUpdate="true"/>
 
-                    <pe:timeline id="timeline" value="#{timelineBean.model}" height="250px"  
+                    <pe:timeline id="timeline" value="#{timelineBean.model}" height="650px"  
                                  selectable="#{timelineBean.selectable}"  
                                  zoomable="#{timelineBean.zoomable}"  
                                  moveable="#{timelineBean.moveable}"  
@@ -22,7 +22,7 @@
                                  axisOnTop="#{timelineBean.axisOnTop}"               
                                  eventStyle="#{timelineBean.eventStyle}"  
                                  showCurrentTime="#{timelineBean.showCurrentTime}"  
-                                 showNavigation="#{timelineBean.showNavigation}">  
+                                 showNavigation="#{timelineBean.showNavigation}">
                         <p:ajax event="select" listener="#{timelineBean.onSelect}"/>  
                     </pe:timeline>  
                 </h:form>

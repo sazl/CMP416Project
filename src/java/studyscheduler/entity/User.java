@@ -1,6 +1,7 @@
 package studyscheduler.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -29,7 +30,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findByUsername", query = "SELECT u FROM User u WHERE u.username = :username"),
     @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password"),
     @NamedQuery(name = "User.findByFirstname", query = "SELECT u FROM User u WHERE u.firstname = :firstname"),
-    @NamedQuery(name = "User.findByLastname", query = "SELECT u FROM User u WHERE u.lastname = :lastname")})
+    @NamedQuery(name = "User.findByLastname", query = "SELECT u FROM User u WHERE u.lastname = :lastname")
+})
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -133,6 +135,37 @@ public class User implements Serializable {
 
     public void setCoursesList(List<Course> coursesList) {
         this.coursesList = coursesList;
+    }
+    
+    public List<Event> getAllEvents() {
+        List<Event> allEvents = new ArrayList<Event>();
+        for (Course c : this.coursesList) {
+            for (Event e : c.getEventsList())
+                allEvents.add(e);
+            for (Exam ex : c.getExamsList())
+                allEvents.add(ex.getEvents());
+        }
+        for (Event e : this.eventsList)
+            allEvents.add(e);
+        return allEvents;
+    }
+    
+    public List<Event> getAllCourseEvents() {
+        List<Event> courseEvents = new ArrayList<Event>();
+        for (Course c : this.coursesList) {
+            for (Event e : c.getEventsList())
+                courseEvents.add(e);
+        }
+        return courseEvents;
+    }
+    
+    public List<Event> getAllExamEvents() {
+        List<Event> examEvents = new ArrayList<Event>();
+        for (Course c : this.coursesList) {
+            for (Exam ex : c.getExamsList())
+                examEvents.add(ex.getEvents());
+        }
+        return examEvents;
     }
 
     @Override

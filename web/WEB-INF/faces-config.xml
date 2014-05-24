@@ -16,6 +16,28 @@
             <to-view-id>/user/schedule.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>schedule-classes</from-outcome>
+            <to-view-id>/user/schedule/classes.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>schedule-exams</from-outcome>
+            <to-view-id>/user/schedule/exams.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>schedule-study</from-outcome>
+            <to-view-id>/user/schedule/study.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
 
     <navigation-rule>
         <navigation-case>
@@ -45,11 +67,17 @@
         </navigation-case>
     </navigation-rule>
     
-        <navigation-rule>
+    <navigation-rule>
         <navigation-case>
             <from-outcome>home-exams</from-outcome>
             <to-view-id>/user/home/exams.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
-
+    
+    <navigation-rule>
+        <navigation-case>
+            <from-outcome>home-study</from-outcome>
+            <to-view-id>/user/home/study.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>

@@ -11,16 +11,11 @@
             <ui:composition template="/resources/template/user-main.xhtml">
                 <ui:define name="local-menu">
                     <h:form>
-                        <p:tabMenu activeIndex="#{param.homeTab}">
-                            <p:menuitem value="Profile" outcome="home">
-                                <f:param name="homeTab" value="0" />
-                            </p:menuitem>
-                            <p:menuitem value="Classes" outcome="home-classes">
-                                <f:param name="homeTab" value="1" />
-                            </p:menuitem>
-                            <p:menuitem value="Exams" outcome="home-exams">
-                                <f:param name="homeTab" value="2" />
-                            </p:menuitem>
+                        <p:tabMenu activeIndex="#{sessionBean.homeTab}">
+                            <p:menuitem value="Profile" outcome="home" action="#{sessioBean.setHomeTab(0)}"/>
+                            <p:menuitem value="Classes" outcome="home-classes" action="#{sessioBean.setHomeTab(1)}"/>
+                            <p:menuitem value="Exams" outcome="home-exams" action="#{sessioBean.setHomeTab(2)}"/>
+                            <p:menuitem value="Study" outcome="home-study" action="#{sessioBean.setHomeTab(3)}"/>
                         </p:tabMenu>
                     </h:form>
                 </ui:define>

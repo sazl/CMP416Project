@@ -13,15 +13,15 @@
                 <h:form>
                     <p:dataTable var="exam" value="#{examBean.exams}"
                                  style="text-align: center; margin-top: 10px"
-                                 rowKey="#{course.id}"
-                                 selection="#{courseBean.selectedCourse}"
+                                 rowKey="#{exam.examsPK}"
+                                 selection="#{examBean.selectedExam}"
                                  selectionMode="single"
                                  styleClass="inner-content">
-                        <p:column headerText="Course Name" sortBy="#{exam.course.name}">
-                            <h:outputText value="#{exam.course.name}"/>                            
+                        <p:column headerText="Course Name" sortBy="#{exam.courses.name}">
+                            <h:outputText value="#{exam.courses.name}"/>                            
                         </p:column>
-                        <p:column headerText="Event Name" sortBy="#{exam.event.name}">
-                            <h:outputText value="#{exam.event.name}"/>
+                        <p:column headerText="Event Name" sortBy="#{exam.events.name}">
+                            <h:outputText value="#{exam.events.name}"/>
                         </p:column>
                         <p:column headerText="Weight" sortBy="#{exam.weight}">
                             <h:outputText value="#{exam.weight}"/>
@@ -29,8 +29,8 @@
                         <p:column headerText="Grade" sortBy="#{exam.grade}">
                             <h:outputText value="#{exam.grade}"/>
                         </p:column>
-                        <p:column headerText="Date" sortBy="#{exam.event.startdate}">
-                            <h:outputText value="#{exam.event.startdate}"/>
+                        <p:column headerText="Date" sortBy="#{exam.events.startdate}">
+                            <h:outputText value="#{exam.events.startdate}"/>
                         </p:column>
 
                     </p:dataTable>

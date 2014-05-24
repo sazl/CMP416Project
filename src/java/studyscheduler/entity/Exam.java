@@ -82,7 +82,7 @@ public class Exam implements Serializable {
     public Course getCourses() {
         return courses;
     }
-
+    
     public void setCourses(Course courses) {
         this.courses = courses;
     }

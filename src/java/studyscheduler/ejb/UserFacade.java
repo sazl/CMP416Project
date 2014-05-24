@@ -1,6 +1,5 @@
 package studyscheduler.ejb;
 
-import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -26,5 +25,19 @@ public class UserFacade extends AbstractFacade<User> {
         return (User) em.createNamedQuery("User.findById")
                 .setParameter("id", 3L)
                 .getSingleResult();
+    }
+    
+    public void addCourse(Course course) {
+        User u = getUser();
+        u.getCoursesList().add(course);
+        em.getTransaction().begin();
+        em.merge(u);
+        em.getTransaction().commit();
+    }
+    
+    public void deleteCourse(Course course) {
+        em.getTransaction().begin();
+        em.remove(course);
+        em.getTransaction().commit();
     }
 }

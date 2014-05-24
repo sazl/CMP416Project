@@ -26,7 +26,7 @@ create table courses (
     userid   integer,
     name     varchar(255),
     priority real default 1.0,
-    gpa      real default 0.0,
+    gpa      real default null,
 
     primary key (id),
     unique (userid, name),
@@ -37,7 +37,7 @@ create table exams (
     courseid       integer,
     eventid        integer,
     weight         real default 1.0,
-    grade          real default 0.0,
+    grade          real default null,
 
     primary key (courseid, eventid),
     constraint exams_courseid_fk foreign key (courseid) references courses (id),

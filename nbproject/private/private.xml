@@ -9,13 +9,14 @@
             <file>file:/home/sami/Programming/internet_network/Project/src/java/studyscheduler/entity/Exam.java</file>
             <file>file:/home/sami/Programming/internet_network/Project/src/java/studyscheduler/bean/TimelineBean.java</file>
             <file>file:/home/sami/Programming/internet_network/Project/web/user/timeline.xhtml</file>
+            <file>file:/home/sami/Programming/internet_network/Project/src/java/studyscheduler/entity/ExamPK.java</file>
             <file>file:/home/sami/Programming/internet_network/Project/web/resources/template/user-main.xhtml</file>
-            <file>file:/home/sami/Programming/internet_network/Project/src/conf/create.sql</file>
             <file>file:/home/sami/Programming/internet_network/Project/src/java/studyscheduler/entity/User.java</file>
             <file>file:/home/sami/Programming/internet_network/Project/web/user/grades.xhtml</file>
             <file>file:/home/sami/Programming/internet_network/Project/web/user/home.xhtml</file>
             <file>file:/home/sami/Programming/internet_network/Project/web/user/home/classes.xhtml</file>
             <file>file:/home/sami/Programming/internet_network/Project/src/java/studyscheduler/bean/LoginBean.java</file>
+            <file>file:/home/sami/Programming/internet_network/Project/src/java/studyscheduler/ejb/UserFacade.java</file>
             <file>file:/home/sami/Programming/internet_network/Project/web/resources/template/main.xhtml</file>
             <file>file:/home/sami/Programming/internet_network/Project/src/java/studyscheduler/bean/CourseBean.java</file>
             <file>file:/home/sami/Programming/internet_network/Project/src/java/studyscheduler/entity/Event.java</file>
@@ -23,10 +24,10 @@
             <file>file:/home/sami/Programming/internet_network/Project/web/resources/template/user-home.xhtml</file>
             <file>file:/home/sami/Programming/internet_network/Project/src/java/studyscheduler/ejb/EventFacade.java</file>
             <file>file:/home/sami/Programming/internet_network/Project/src/java/studyscheduler/ejb/ExamFacade.java</file>
-            <file>file:/home/sami/Programming/internet_network/Project/web/user/schedule.xhtml</file>
             <file>file:/home/sami/Programming/internet_network/Project/web/user/study.xhtml</file>
             <file>file:/home/sami/Programming/internet_network/Project/src/java/studyscheduler/ejb/CourseFacade.java</file>
             <file>file:/home/sami/Programming/internet_network/Project/web/user/home/exams.xhtml</file>
+            <file>file:/home/sami/Programming/internet_network/Project/nbproject/build-impl.xml</file>
         </group>
     </open-files>
 </project-private>

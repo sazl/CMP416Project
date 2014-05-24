@@ -1,66 +1,72 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package studyscheduler.entity;
 
 import java.io.Serializable;
 import java.util.List;
-import static javax.persistence.CascadeType.ALL;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-@Table(name="COURSES")
-@NamedQuery(
-        name="Courses.All",
-        query="select c from Course c"
-)
+@Table(name = "COURSES")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Course.findAll", query = "SELECT c FROM Course c"),
+    @NamedQuery(name = "Course.findById", query = "SELECT c FROM Course c WHERE c.id = :id"),
+    @NamedQuery(name = "Course.findByName", query = "SELECT c FROM Course c WHERE c.name = :name"),
+    @NamedQuery(name = "Course.findByPriority", query = "SELECT c FROM Course c WHERE c.priority = :priority"),
+    @NamedQuery(name = "Course.findByGpa", query = "SELECT c FROM Course c WHERE c.gpa = :gpa")})
 public class Course implements Serializable {
     private static final long serialVersionUID = 1L;
-    
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "ID")
+    private Integer id;
+    @Size(max = 255)
+    @Column(name = "NAME")
     private String name;
-    private Double priority;
-    private Double gpa;
-    
+    @Column(name = "PRIORITY")
+    private Float priority;
+    @Column(name = "GPA")
+    private Float gpa;
+    @JoinTable(name = "COURSE_SCHEDULES", joinColumns = {
+        @JoinColumn(name = "COURSEID", referencedColumnName = "ID")}, inverseJoinColumns = {
+        @JoinColumn(name = "EVENTID", referencedColumnName = "ID")})
+    @ManyToMany
+    private List<Event> eventsList;
+    @JoinColumn(name = "USERID", referencedColumnName = "ID")
     @ManyToOne
-    @JoinColumn(name="USERID")
-    private User user;
-    
-    @OneToMany(cascade=ALL)
-    @JoinTable(
-            name="EXAMS",
-            joinColumns=@JoinColumn(name="COURSEID"),
-            inverseJoinColumns=@JoinColumn(name="EVENTID")
-    )
-    private List<Exam> exams;
-    
-    @OneToMany(cascade=ALL)
-    @JoinTable(
-            name="COURSE_SCHEDULES",
-            joinColumns=@JoinColumn(name="COURSEID"),
-            inverseJoinColumns=@JoinColumn(name="EVENTID")
-    )    
-    private List<Event> events;
-    
-    public Long getId() {
+    private User userid;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "courses")
+    private List<Exam> examsList;
+
+    public Course() {
+    }
+
+    public Course(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -72,46 +78,48 @@ public class Course implements Serializable {
         this.name = name;
     }
 
-    public Double getPriority() {
+    public Float getPriority() {
         return priority;
     }
 
-    public void setPriority(Double priority) {
+    public void setPriority(Float priority) {
         this.priority = priority;
     }
 
-    public Double getGpa() {
+    public Float getGpa() {
         return gpa;
     }
 
-    public void setGpa(Double gpa) {
+    public void setGpa(Float gpa) {
         this.gpa = gpa;
     }
 
-    public User getUser() {
-        return user;
+    @XmlTransient
+    public List<Event> getEventsList() {
+        return eventsList;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setEventsList(List<Event> eventsList) {
+        this.eventsList = eventsList;
     }
 
-    public List<Exam> getExams() {
-        return exams;
+    public User getUserid() {
+        return userid;
     }
 
-    public void setExams(List<Exam> exams) {
-        this.exams = exams;
+    public void setUserid(User userid) {
+        this.userid = userid;
     }
 
-    public List<Event> getEvents() {
-        return events;
+    @XmlTransient
+    public List<Exam> getExamsList() {
+        return examsList;
     }
 
-    public void setEvents(List<Event> events) {
-        this.events = events;
+    public void setExamsList(List<Exam> examsList) {
+        this.examsList = examsList;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -133,7 +141,7 @@ public class Course implements Serializable {
 
     @Override
     public String toString() {
-        return "studyscheduler.entity.Course[ id=" + id + " ]";
+        return "entity.Courses[ id=" + id + " ]";
     }
     
 }

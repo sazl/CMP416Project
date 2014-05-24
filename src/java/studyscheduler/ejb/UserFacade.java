@@ -9,6 +9,7 @@ import studyscheduler.entity.User;
 
 @Stateless
 public class UserFacade extends AbstractFacade<User> {
+
     @PersistenceContext(unitName = "StudySchedulerPU")
     private EntityManager em;
 
@@ -20,13 +21,10 @@ public class UserFacade extends AbstractFacade<User> {
     public UserFacade() {
         super(User.class);
     }
-    
+
     public User getUser() {
-        return em.find(User.class, 3L);
-    }
-    
-    public List<Course> getCourses() {
-        return em.createNamedQuery("User.findAll")
-                .getResultList();
+        return (User) em.createNamedQuery("User.findById")
+                .setParameter("id", 3L)
+                .getSingleResult();
     }
 }

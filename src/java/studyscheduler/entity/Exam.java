@@ -1,90 +1,96 @@
 package studyscheduler.entity;
 
 import java.io.Serializable;
-import java.util.List;
-import static javax.persistence.CascadeType.ALL;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
-@Table(name="EXAMS")
+@Table(name = "EXAMS")
+@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name="Exam.findAll", query="SELECT e from Exam e")
-})
+    @NamedQuery(name = "Exam.findAll", query = "SELECT e FROM Exam e"),
+    @NamedQuery(name = "Exam.findByCourseid", query = "SELECT e FROM Exam e WHERE e.examsPK.courseid = :courseid"),
+    @NamedQuery(name = "Exam.findByEventid", query = "SELECT e FROM Exam e WHERE e.examsPK.eventid = :eventid"),
+    @NamedQuery(name = "Exam.findByWeight", query = "SELECT e FROM Exam e WHERE e.weight = :weight"),
+    @NamedQuery(name = "Exam.findByGrade", query = "SELECT e FROM Exam e WHERE e.grade = :grade")})
 public class Exam implements Serializable {
     private static final long serialVersionUID = 1L;
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private Double weight;
-    private Double grade;
-    
-    @OneToMany(cascade=ALL)
-    @JoinTable(
-            name="EVENTS",
-            joinColumns=@JoinColumn(name="ID"),
-            inverseJoinColumns=@JoinColumn(name="EVENTID")
-    )
-    private List<Event> events;
-    
-    @ManyToOne
-    @JoinColumn(name="COURSEID")
-    private Course course;
+    @EmbeddedId
+    protected ExamPK examsPK;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "WEIGHT")
+    private Float weight;
+    @Column(name = "GRADE")
+    private Float grade;
+    @JoinColumn(name = "EVENTID", referencedColumnName = "ID", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Event events;
+    @JoinColumn(name = "COURSEID", referencedColumnName = "ID", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Course courses;
 
-    public Long getId() {
-        return id;
+    public Exam() {
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Exam(ExamPK examsPK) {
+        this.examsPK = examsPK;
     }
 
-    public Double getWeight() {
+    public Exam(int courseid, int eventid) {
+        this.examsPK = new ExamPK(courseid, eventid);
+    }
+
+    public ExamPK getExamsPK() {
+        return examsPK;
+    }
+
+    public void setExamsPK(ExamPK examsPK) {
+        this.examsPK = examsPK;
+    }
+
+    public Float getWeight() {
         return weight;
     }
 
-    public void setWeight(Double weight) {
+    public void setWeight(Float weight) {
         this.weight = weight;
     }
 
-    public Double getGrade() {
+    public Float getGrade() {
         return grade;
     }
 
-    public void setGrade(Double grade) {
+    public void setGrade(Float grade) {
         this.grade = grade;
     }
 
-    public Course getCourse() {
-        return course;
+    public Event getEvents() {
+        return events;
     }
 
-    public void setCourse(Course course) {
-        this.course = course;
+    public void setEvents(Event events) {
+        this.events = events;
     }
 
-    public Event getEvent() {
-        return event;
+    public Course getCourses() {
+        return courses;
     }
 
-    public void setEvent(Event event) {
-        this.event = event;
+    public void setCourses(Course courses) {
+        this.courses = courses;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (examsPK != null ? examsPK.hashCode() : 0);
         return hash;
     }
 
@@ -94,7 +100,7 @@ public class Exam implements Serializable {
             return false;
         }
         Exam other = (Exam) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.examsPK == null && other.examsPK != null) || (this.examsPK != null && !this.examsPK.equals(other.examsPK))) {
             return false;
         }
         return true;
@@ -102,7 +108,7 @@ public class Exam implements Serializable {
 
     @Override
     public String toString() {
-        return "studyscheduler.entity.Exam[ id=" + id + " ]";
+        return "entity.Exams[ examsPK=" + examsPK + " ]";
     }
     
 }

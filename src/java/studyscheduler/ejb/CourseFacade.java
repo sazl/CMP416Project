@@ -23,7 +23,7 @@ public class CourseFacade extends AbstractFacade<Course> {
     }
     
     public List<Course> getCourses() {
-        Query q = em.createNamedQuery("Courses.All");
+        Query q = em.createNamedQuery("Course.All");
         List<Course> res = q.getResultList();
         return res;
     }

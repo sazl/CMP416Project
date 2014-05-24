@@ -1,9 +1,12 @@
 package studyscheduler.bean;
 
+import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import studyscheduler.ejb.CourseFacade;
 import studyscheduler.ejb.UserFacade;
@@ -11,8 +14,8 @@ import studyscheduler.entity.Course;
 import studyscheduler.entity.Event;
 
 @ManagedBean(name = "courseBean")
-@RequestScoped
-public class CourseBean {
+@SessionScoped
+public class CourseBean implements Serializable {
 
     @EJB
     private UserFacade user;
@@ -23,7 +26,7 @@ public class CourseBean {
         this.addedCourse = new Course();
         this.addedCourseEvent = new Event();
         this.selectedCourse = new Course();
-        this.selectedCourseEvent = new Event();
+
     }
 
     public List<Course> getCourses() {
@@ -33,7 +36,7 @@ public class CourseBean {
     public void setCourses(List<Course> courses) {
 
     }
-    
+
     public Course getAddedCourse() {
         return addedCourse;
     }
@@ -49,17 +52,26 @@ public class CourseBean {
     public void setAddedCourseEvent(Event addedCourseEvent) {
         this.addedCourseEvent = addedCourseEvent;
     }
-    
+
     public void addCourse(ActionEvent e) {
         addedCourse.getEventsList().add(addedCourseEvent);
         user.addCourse(addedCourse);
     }
-    
+
     public void deleteSelectedCourse(ActionEvent e) {
-        System.out.println("!!!!!!!!!!!!!!! " + selectedCourse.getName());
-        user.deleteCourse(selectedCourse);
+        FacesContext context = FacesContext.getCurrentInstance();
+        System.out.print("!!!!!!!!!!!" + selectedCourse);
+        if (selectedCourse != null) {
+            user.deleteCourse(selectedCourse);
+            context.addMessage(null, new FacesMessage("Deleted Course"));
+        } else {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error Deleting Course", "Database Error"));
+
+        }
     }
 
+    
+    
     public Course getSelectedCourse() {
         return selectedCourse;
     }
@@ -75,14 +87,14 @@ public class CourseBean {
     public void setSelectedCourseEvent(Event selectedCourseEvent) {
         this.selectedCourseEvent = selectedCourseEvent;
     }
-    
-    public void editCourse() {
-      
+
+    public void editCourse(ActionEvent e) {
+
     }
-    
+
     public Course addedCourse;
-    public Event  addedCourseEvent;
-    
+    public Event addedCourseEvent;
+
     public Course selectedCourse;
-    public Event  selectedCourseEvent;
+    public Event selectedCourseEvent;
 }

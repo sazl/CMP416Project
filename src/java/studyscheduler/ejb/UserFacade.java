@@ -1,6 +1,8 @@
 package studyscheduler.ejb;
 
 import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import studyscheduler.entity.Course;
@@ -27,17 +29,16 @@ public class UserFacade extends AbstractFacade<User> {
                 .getSingleResult();
     }
     
+    @TransactionAttribute(TransactionAttributeType.MANDATORY)
     public void addCourse(Course course) {
         User u = getUser();
         u.getCoursesList().add(course);
-        em.getTransaction().begin();
-        em.merge(u);
-        em.getTransaction().commit();
+        em.flush();
     }
     
+    @TransactionAttribute(TransactionAttributeType.MANDATORY)
     public void deleteCourse(Course course) {
-        em.getTransaction().begin();
         em.remove(course);
-        em.getTransaction().commit();
+        em.flush();
     }
 }

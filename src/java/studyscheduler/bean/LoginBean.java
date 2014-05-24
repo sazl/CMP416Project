@@ -1,5 +1,6 @@
 package studyscheduler.bean;
 
+import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -8,7 +9,7 @@ import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "loginBean")
 @SessionScoped
-public class LoginBean {
+public class LoginBean implements Serializable {
 
     private String username;
     private String password;
@@ -32,6 +33,10 @@ public class LoginBean {
         FacesContext fcontext = FacesContext.getCurrentInstance();
         fcontext.addMessage(null, msg);
         context.addCallbackParam("loggedIn", loggedIn);
+    }
+    
+    public void logout() {
+        System.out.println("!!!!!LOGOUT");
     }
 
     public String getUsername() {

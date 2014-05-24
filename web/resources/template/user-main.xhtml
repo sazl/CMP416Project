@@ -16,6 +16,7 @@
             <div name="menu" class="header">
                 <ui:insert name="menu">
                     <h:form>
+                        <p:growl/>
                         <p:tabMenu activeIndex="#{sessionBean.mainTab}">
                             <p:menuitem value="#{userBean.user.username}" outcome="home" styleClass="ui-priority-primary" action="#{sessioBean.setMainTab(0)}"/>
                             <p:menuitem value="Schedule" outcome="schedule" action="#{sessioBean.setMainTab(1)}"/>
@@ -23,7 +24,7 @@
                             <p:menuitem value="Grades" outcome="grades" action="#{sessioBean.setMainTab(3)}"/>
                             <p:menuitem value="Study" outcome="study" action="#{sessioBean.setMainTab(4)}"/>
                             <p:menuitem disabled="true"  action="#{sessioBean.setMainTab(5)}">
-                                <p:commandButton type="button" value="Logout" icon="ui-icon-cancel" style="color: darkred"/>
+                                <p:commandButton type="submit" value="Logout" icon="ui-icon-cancel" style="color: darkred" action="#{loginBean.logout()}" ajax="false"/>
                             </p:menuitem>
                         </p:tabMenu>
                     </h:form>
@@ -32,9 +33,6 @@
 
             <div class="header">
                 <ui:insert name="local-menu">
-                    <p:tabMenu activeIndex="${param.j}" rendered="false">
-
-                    </p:tabMenu>
                 </ui:insert>
             </div>
 

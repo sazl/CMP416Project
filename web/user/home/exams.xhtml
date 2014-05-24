@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Exams</title>
     </h:head>
@@ -11,25 +12,33 @@
         <ui:composition template="/resources/template/user-home.xhtml">
             <ui:define name="content">
                 <h:form>
+                    <p:toolbar styleClass="header">
+                        <f:facet name="left">
+                            <p:commandButton type="button" value="Add Exam" onclick="PF('examAddDialog').show()"/>
+                            <p:commandButton type="button" value="Edit Exam" onclick="PF('examEditDialog').show()"/>
+                            <p:commandButton type="submit" value="Delete Exam" actionListener="#{examBean.deleteSelectedExam}" immediate="true" ajax="false"/>
+                        </f:facet>
+                    </p:toolbar>
+
                     <p:dataTable var="exam" value="#{examBean.exams}"
                                  style="text-align: center; margin-top: 10px"
-                                 rowKey="#{exam.examsPK}"
                                  selection="#{examBean.selectedExam}"
                                  selectionMode="single"
+                                 rowKey="#{exam.examsPK}"
                                  styleClass="inner-content">
-                        <p:column headerText="Course Name" sortBy="#{exam.courses.name}">
+                        <p:column headerText="Course Name">
                             <h:outputText value="#{exam.courses.name}"/>                            
                         </p:column>
-                        <p:column headerText="Event Name" sortBy="#{exam.events.name}">
+                        <p:column headerText="Event Name">
                             <h:outputText value="#{exam.events.name}"/>
                         </p:column>
-                        <p:column headerText="Weight" sortBy="#{exam.weight}">
+                        <p:column headerText="Weight">
                             <h:outputText value="#{exam.weight}"/>
                         </p:column>
-                        <p:column headerText="Grade" sortBy="#{exam.grade}">
+                        <p:column headerText="Grade">
                             <h:outputText value="#{exam.grade}"/>
                         </p:column>
-                        <p:column headerText="Date" sortBy="#{exam.events.startdate}">
+                        <p:column headerText="Date">
                             <h:outputText value="#{exam.events.startdate}"/>
                         </p:column>
 

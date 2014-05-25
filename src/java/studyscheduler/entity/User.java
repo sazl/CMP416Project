@@ -34,6 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findByLastname", query = "SELECT u FROM User u WHERE u.lastname = :lastname")
 })
 public class User implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -137,34 +138,49 @@ public class User implements Serializable {
     public void setCoursesList(List<Course> coursesList) {
         this.coursesList = coursesList;
     }
-    
+
     public List<Event> getAllEvents() {
         List<Event> allEvents = new ArrayList<Event>();
         for (Course c : this.coursesList) {
-            for (Event e : c.getEventsList())
+            for (Event e : c.getEventsList()) {
                 allEvents.add(e);
-            for (Exam ex : c.getExamsList())
+            }
+            for (Exam ex : c.getExamsList()) {
                 allEvents.add(ex.getEvents());
+            }
         }
-        for (Event e : this.eventsList)
+        for (Event e : this.eventsList) {
             allEvents.add(e);
+        }
         return allEvents;
     }
-    
+
     public List<Event> getAllCourseEvents() {
         List<Event> courseEvents = new ArrayList<Event>();
         for (Course c : this.coursesList) {
-            for (Event e : c.getEventsList())
+            for (Event e : c.getEventsList()) {
                 courseEvents.add(e);
+            }
         }
         return courseEvents;
     }
-    
+
+    public List<Exam> getAllExams() {
+        List<Exam> exams = new ArrayList<Exam>();
+        for (Course c : this.coursesList) {
+            for (Exam ex : c.getExamsList()) {
+                exams.add(ex);
+            }
+        }
+        return exams;
+    }
+
     public List<Event> getAllExamEvents() {
         List<Event> examEvents = new ArrayList<Event>();
         for (Course c : this.coursesList) {
-            for (Exam ex : c.getExamsList())
+            for (Exam ex : c.getExamsList()) {
                 examEvents.add(ex.getEvents());
+            }
         }
         return examEvents;
     }
@@ -193,5 +209,5 @@ public class User implements Serializable {
     public String toString() {
         return "entity.Users[ id=" + id + " ]";
     }
-    
+
 }

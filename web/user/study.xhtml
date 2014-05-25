@@ -11,7 +11,33 @@
     </h:head>
     <h:body>
         <ui:composition template="/resources/template/user-main.xhtml">
+            <ui:define name="title">
+                <title>Study</title>
+            </ui:define>
+
             <ui:define name="content">
+                <h:form>
+                    <p:dataTable var="study" binding="#{studyBean.studyDataTable}"
+                                 value="#{userBean.user.eventsList}"
+                                 style="text-align: center; margin-top: 10px"
+                                 rowKey="#{study.id}"
+                                 selectionMode="single"
+                                 styleClass="inner-content">
+                        <p:column headerText="Study Name">
+                            <h:outputText value="#{study.name}"/>                            
+                        </p:column>
+                        <p:column headerText="Description">
+                            <h:outputText value="#{study.description}"/>
+                        </p:column>
+                        <p:column headerText="Start Date">
+                            <h:outputText value="#{study.startdate}"/>
+                        </p:column>
+                        <p:column headerText="End Date">
+                            <h:outputText value="#{study.enddate}"/>
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>
             </ui:define>
         </ui:composition>
     </h:body>

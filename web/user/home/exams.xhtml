@@ -29,7 +29,7 @@
                 </p:toolbar>
 
 
-                <p:dataTable var="exam" value="#{examBean.exams}"
+                <p:dataTable var="exam" value="#{userBean.user.allExams}"
                              binding="#{examBean.examDataTable}"
                              style="text-align: center; margin-top: 10px"
                              selection="#{examBean.selectedExam}"

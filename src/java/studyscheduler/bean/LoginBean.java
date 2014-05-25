@@ -1,14 +1,15 @@
 package studyscheduler.bean;
 
 import java.io.Serializable;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletResponse;
 import org.primefaces.context.RequestContext;
 import studyscheduler.ejb.UserFacade;
+import studyscheduler.entity.User;
 
 @ManagedBean(name = "loginBean")
 @SessionScoped
@@ -18,6 +19,11 @@ public class LoginBean implements Serializable {
     private UserFacade user;
 
     public LoginBean() {
+    }
+
+    @PostConstruct
+    public void initialize() {
+        this.registerUser = new User();
     }
 
     public void login() {
@@ -64,6 +70,41 @@ public class LoginBean implements Serializable {
         return user.isAuthenticated();
     }
 
+    public User getRegisterUser() {
+        return registerUser;
+    }
+
+    public void setRegisterUser(User registerUser) {
+        this.registerUser = registerUser;
+    }
+
+    public String getRegisterConfirmPassword() {
+        return registerConfirmPassword;
+    }
+
+    public void setRegisterConfirmPassword(String registerConfirmPassword) {
+        this.registerConfirmPassword = registerConfirmPassword;
+    }
+
+    public void register() {
+        FacesContext fcontext = FacesContext.getCurrentInstance();
+        try {
+            if (!registerUser.getPassword().equals(this.registerConfirmPassword)) {
+                fcontext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Passwords Don't Match", ""));
+            } else {
+                user.create(registerUser);
+                fcontext.getApplication()
+                        .getNavigationHandler()
+                        .handleNavigation(fcontext, null, "index");
+            }
+        } catch (Exception e) {
+            fcontext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Registration Error", e.getMessage()));
+        }
+    }
+
     private String username;
     private String password;
+
+    private User registerUser;
+    private String registerConfirmPassword;
 }

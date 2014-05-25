@@ -18,18 +18,24 @@
                         <span class="ui-separator">
                             <span class="ui-icon ui-icon-grip-dotted-vertical" />
                         </span>
-                        <p:selectOneMenu id="courseSelected"/>
+                            <p:selectOneMenu id="courseSelected"
+                                             value="#{gradeBean.selectedCourseId}"
+                                             onchange="submit()"
+                                             valueChangeListener="#{gradeBean.selectionChanged}">
+                            <f:selectItems value="#{courseBean.courses}"
+                                           var="course" itemLabel="#{course.name}"
+                                           itemValue="#{course.id}"/>
+                        </p:selectOneMenu>
                     </f:facet>
                 </p:toolbar>
             </h:form>
 
             <p:panel header="Exams" styleClass="inner-content">
-
-
+                <p:chart type="line" model="#{gradeBean.selectedCourseModel}" style="height: 400px; width: 600px; margin: 0 auto"/>
             </p:panel>
 
             <p:panel header="Exams By Date" styleClass="inner-content" style="margin-top:20px">
-           
+
             </p:panel>
         </ui:define>
     </ui:composition>

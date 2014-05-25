@@ -141,7 +141,7 @@ public class Course implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.Courses[ id=" + id + " ]";
+        return String.valueOf(id); //"entity.Courses[ id=" + id + " ]";
     }
     
 }

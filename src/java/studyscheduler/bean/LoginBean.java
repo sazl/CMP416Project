@@ -1,42 +1,47 @@
 package studyscheduler.bean;
 
 import java.io.Serializable;
+import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletResponse;
 import org.primefaces.context.RequestContext;
+import studyscheduler.ejb.UserFacade;
 
 @ManagedBean(name = "loginBean")
 @SessionScoped
 public class LoginBean implements Serializable {
 
-    private String username;
-    private String password;
-    private boolean loggedIn;
+    @EJB
+    private UserFacade user;
 
     public LoginBean() {
     }
 
     public void login() {
         RequestContext context = RequestContext.getCurrentInstance();
-        FacesMessage msg = null;
-
-        if (username != null && username.equals("admin") && password != null && password.equals("admin")) {
-            loggedIn = true;
-            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", username);
-        } else {
-            loggedIn = false;
-            msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error", "Invalid credentials");
-        }
-
         FacesContext fcontext = FacesContext.getCurrentInstance();
-        fcontext.addMessage(null, msg);
-        context.addCallbackParam("loggedIn", loggedIn);
+
+        if (username != null && password != null && user.authenticate(username, password)) {
+            fcontext.getApplication()
+                    .getNavigationHandler()
+                    .handleNavigation(fcontext, null, "home");
+            fcontext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", username));
+        } else {
+            fcontext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error", "Invalid credentials"));
+        }
     }
-    
+
     public void logout() {
-        System.out.println("!!!!!LOGOUT");
+        FacesContext fcontext = FacesContext.getCurrentInstance();
+        if (user.logout()) {
+            fcontext.getApplication()
+                    .getNavigationHandler()
+                    .handleNavigation(fcontext, null, "index");
+            fcontext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Bye ", username));
+        }
     }
 
     public String getUsername() {
@@ -56,11 +61,9 @@ public class LoginBean implements Serializable {
     }
 
     public boolean isLoggedIn() {
-        return loggedIn;
+        return user.isAuthenticated();
     }
 
-    public void setLoggedIn(boolean loggedIn) {
-        this.loggedIn = loggedIn;
-    }
-
+    private String username;
+    private String password;
 }

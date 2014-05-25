@@ -24,6 +24,7 @@ public class UserBean implements Serializable {
     }
 
     public void editProfile(ActionEvent e) {
+        user.edit(getUser());
         RequestContext.getCurrentInstance().execute("PF('profileEditDialog').hide();");
     }
 }

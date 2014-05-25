@@ -11,38 +11,72 @@
             <title>Home</title>
         </ui:define>
         <ui:define name="content">
+            <h:form>
                 <p:toolbar styleClass="header">
                     <f:facet name="left">
-                        <p:commandButton type="button" value="Edit Profile" onclick="PF('examEditDialog').show()"/>
-                        <p:commandButton type="submit" value="Delete Exam" actionListener="#{examBean.deleteSelectedExam}" immediate="true" ajax="false"/>
+                        <p:commandButton type="button" value="Edit Profile" onclick="PF('profileEditDialog').show()"/>
                     </f:facet>
                 </p:toolbar>
-                <p:panelGrid styleClass="inner-content" style="text-align: center">
-                    <p:row>
-                        <p:column styleClass="ui-widget-header">ID</p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column><p:outputLabel value="#{userBean.user.id}"/></p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column styleClass="ui-widget-header">Username</p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column>#{userBean.user.username}</p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column styleClass="ui-widget-header">First Name</p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column>#{userBean.user.firstname}</p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column styleClass="ui-widget-header">Last Name</p:column>
-                    </p:row>
-                    <p:row>
-                        <p:column>#{userBean.user.lastname}</p:column>
-                    </p:row>
-                </p:panelGrid>
+            </h:form>
+
+            <p:panelGrid styleClass="inner-content" style="text-align: center">
+                <p:row>
+                    <p:column styleClass="ui-widget-header">ID</p:column>
+                </p:row>
+                <p:row>
+                    <p:column><p:outputLabel value="#{userBean.user.id}"/></p:column>
+                </p:row>
+                <p:row>
+                    <p:column styleClass="ui-widget-header">Username</p:column>
+                </p:row>
+                <p:row>
+                    <p:column>#{userBean.user.username}</p:column>
+                </p:row>
+                <p:row>
+                    <p:column styleClass="ui-widget-header">First Name</p:column>
+                </p:row>
+                <p:row>
+                    <p:column>#{userBean.user.firstname}</p:column>
+                </p:row>
+                <p:row>
+                    <p:column styleClass="ui-widget-header">Last Name</p:column>
+                </p:row>
+                <p:row>
+                    <p:column>#{userBean.user.lastname}</p:column>
+                </p:row>
+            </p:panelGrid>
+
+        </ui:define>
+
+        <ui:define name="outer">
+            <p:dialog widgetVar="profileEditDialog" dynamic="true"
+                      header="Edit Profile" showEffect="clip" hideEffect="clip">
+                <h:form id="formProfileDetail">
+                    <h:panelGrid id="profileDetail" columns="2">
+
+                        <h:outputLabel for="name" value="Name:"/>
+                        <p:inputText id="name" value="#{userBean.user.username}" required="true"/>
+
+                        <h:outputLabel for="first-name" value="First Name:" />
+                        <p:inputText id="first-name" value="#{userBean.user.firstname}" required="true"/>
+
+                        <h:outputLabel for="last-name" value="Last Name:" />
+                        <p:inputText id="last-name" value="#{userBean.user.lastname}" required="true"/>
+
+                        <h:outputLabel for="password" value="Password:" />
+                        <p:password id="password" value="#{userBean.user.password}" required="true"/>
+
+
+                        <p:commandButton type="reset" value="Reset" />
+                        <p:commandButton id="profileButton"
+                                         value="Save"
+                                         type="submit"
+                                         update="formProfileDetail"
+                                         ajax="false"
+                                         actionListener="#{userBean.editProfile}"/>
+                    </h:panelGrid>
+                </h:form>
+            </p:dialog>
         </ui:define>
     </ui:composition>
 </html>

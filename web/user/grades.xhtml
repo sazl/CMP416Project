@@ -3,26 +3,34 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition template="/resources/template/user-main.xhtml">
         <ui:define name="title">
             <title>Grades</title>
         </ui:define>
         <ui:define name="content">
-            <p:dataTable var="course" value="#{courseBean.courses}"
-                         style="text-align: center"
-                         styleClass="inner-content">
-                <p:column headerText="Name">
-                    <h:outputText value="#{course.name}" />
-                </p:column>
-                <p:column headerText="Priority">
-                    <h:outputText value="#{course.priority}" />
-                </p:column>
-                <p:column headerText="GPA">
-                    <h:outputText value="#{course.gpa}" />
-                </p:column>
-            </p:dataTable>
+            <h:form>
+                <p:toolbar styleClass="header">
+                    <f:facet name="left">
+                        <p:outputLabel value="Course: "/>
+                        <span class="ui-separator">
+                            <span class="ui-icon ui-icon-grip-dotted-vertical" />
+                        </span>
+                        <p:selectOneMenu id="courseSelected"/>
+                    </f:facet>
+                </p:toolbar>
+            </h:form>
+
+            <p:panel header="Exams" styleClass="inner-content">
+
+
+            </p:panel>
+
+            <p:panel header="Exams By Date" styleClass="inner-content" style="margin-top:20px">
+           
+            </p:panel>
         </ui:define>
     </ui:composition>
 </html>

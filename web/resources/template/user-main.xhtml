@@ -13,11 +13,11 @@
     </h:head>
     <h:body>
         <f:view>
-            <h:form>
-                <div name="menu" class="header">
-                    <ui:insert name="menu">
 
-                        <p:growl id="messages" autoUpdate="true" life="3000"/>
+            <div name="menu" class="header">
+                <ui:insert name="menu">
+                    <h:form>
+                        <p:growl id="messages" showDetail="true" autoUpdate="true" life="3000"/>
                         <p:tabMenu activeIndex="#{sessionBean.mainTab}">
                             <p:menuitem value="#{userBean.user.username}" outcome="home" styleClass="ui-priority-primary" action="#{sessioBean.setMainTab(0)}"/>
                             <p:menuitem value="Schedule" outcome="schedule" action="#{sessioBean.setMainTab(1)}"/>
@@ -28,29 +28,32 @@
                                 <p:commandButton type="submit" value="Logout" icon="ui-icon-cancel" style="color: darkred" action="#{loginBean.logout()}" ajax="false"/>
                             </p:menuitem>
                         </p:tabMenu>
+                    </h:form>
+                </ui:insert>
+            </div>
 
-                    </ui:insert>
-                </div>
+            <div class="header">
+                <ui:insert name="local-menu">
+                </ui:insert>
+            </div>
 
-                <div class="header">
-                    <ui:insert name="local-menu">
-                    </ui:insert>
-                </div>
+            <div class="inner-content">
+                <ui:insert name="content">
+                    Content
+                </ui:insert>
+            </div>
 
-                <div class="inner-content">
-                    <ui:insert name="content">
-                        Content
-                    </ui:insert>
-                </div>
+            <div name="footer" class="content">
+                <ui:insert name="footer">
+                    <f:facet name="footer">
+                        <h:outputText value="Footer"/>
+                    </f:facet>
+                </ui:insert>
+            </div>
 
-                <div name="footer" class="content">
-                    <ui:insert name="footer">
-                        <f:facet name="footer">
-                            <h:outputText value="Footer"/>
-                        </f:facet>
-                    </ui:insert>
-                </div>
-            </h:form>
+            <ui:insert name="outer">
+
+            </ui:insert>
         </f:view>
     </h:body>
 </html>

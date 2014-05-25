@@ -3,11 +3,14 @@ package studyscheduler.bean;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.html.HtmlPanelGrid;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import org.primefaces.component.datatable.DataTable;
@@ -67,9 +70,10 @@ public class CourseBean implements Serializable {
         this.addedCourseEvent = addedCourseEvent;
     }
 
-    public void addCourse(ActionEvent e) {
+    public void addCourse(ActionEvent ev) {
+        addedCourseEvent.setDescription(addedCourse.getName());
+        addedCourseEvent.setName(addedCourse.getName());
         user.addCourse(addedCourse, addedCourseEvent);
-        System.out.println("!!!!!!!!!!!!!!!!!!" + addedCourse.getPriority());
         RequestContext.getCurrentInstance().execute("PF('courseAddDialog').hide();");
     }
 
@@ -141,11 +145,21 @@ public class CourseBean implements Serializable {
         this.courseDataTable = courseDataTable;
     }
 
+    public HtmlPanelGrid getAddDialog() {
+        return addDialog;
+    }
+
+    public void setAddDialog(HtmlPanelGrid addDialog) {
+        this.addDialog = addDialog;
+    }
+
+
     private Course editedCourse;
     private Event editedCourseEvent;
 
     private Course addedCourse;
     private Event addedCourseEvent;
 
+    private HtmlPanelGrid addDialog;
     private DataTable courseDataTable;
 }

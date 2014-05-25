@@ -10,39 +10,79 @@
         <ui:define name="title">
             <title>Exams</title>
         </ui:define>
-        <ui:define name="content">
-            <p:toolbar styleClass="header">
-                <f:facet name="left">
-                    <p:commandButton type="button" value="Add Exam" onclick="PF('examAddDialog').show()"/>
-                    <p:commandButton type="button" value="Edit Exam" onclick="PF('examEditDialog').show()"/>
-                    <p:commandButton type="submit" value="Delete Exam" actionListener="#{examBean.deleteSelectedExam}" immediate="true" ajax="false"/>
-                </f:facet>
-            </p:toolbar>
 
-            <p:dataTable var="exam" value="#{examBean.exams}"
-                         binding="#{examBean.examDataTable}"
-                         style="text-align: center; margin-top: 10px"
-                         selection="#{examBean.selectedExam}"
-                         selectionMode="single"
-                         rowKey="#{exam.examsPK}"
-                         styleClass="inner-content">
-                <p:column headerText="Course Name">
-                    <h:outputText value="#{exam.courses.name}"/>                            
-                </p:column>
-                <p:column headerText="Event Name">
-                    <h:outputText value="#{exam.events.name}"/>
-                </p:column>
-                <p:column headerText="Weight">
-                    <h:outputText value="#{exam.weight}"/>
-                </p:column>
-                <p:column headerText="Grade">
-                    <h:outputText value="#{exam.grade}"/>
-                </p:column>
-                <p:column headerText="Date">
-                    <h:outputText value="#{exam.events.startdate}"/>
-                </p:column>
-            </p:dataTable>
+        <ui:define name="content">
+            <h:form>
+                <p:toolbar styleClass="header">
+                    <f:facet name="left">
+                        <p:commandButton type="button" value="Add Exam"
+                                         immediate="true"
+                                         onclick="PF('examAddDialog').show()"/>
+                        <p:commandButton type="submit" value="Edit Exam"
+                                         actionListener="#{examBean.prepareEdit}"
+                                         ajax="false"
+                                         immediate="true"/>
+                        <p:commandButton type="submit" value="Delete Exam"
+                                         actionListener="#{examBean.deleteSelectedExam}"
+                                         immediate="true" ajax="false"/>
+                    </f:facet>
+                </p:toolbar>
+
+
+                <p:dataTable var="exam" value="#{examBean.exams}"
+                             binding="#{examBean.examDataTable}"
+                             style="text-align: center; margin-top: 10px"
+                             selection="#{examBean.selectedExam}"
+                             selectionMode="single"
+                             rowKey="#{exam.examsPK}"
+                             styleClass="inner-content">
+                    <p:column headerText="Course Name">
+                        <h:outputText value="#{exam.courses.name}"/>                            
+                    </p:column>
+                    <p:column headerText="Event Name">
+                        <h:outputText value="#{exam.events.name}"/>
+                    </p:column>
+                    <p:column headerText="Weight">
+                        <h:outputText value="#{exam.weight}"/>
+                    </p:column>
+                    <p:column headerText="Grade">
+                        <h:outputText value="#{exam.grade}"/>
+                    </p:column>
+                    <p:column headerText="Date">
+                        <h:outputText value="#{exam.events.startdate}"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
         </ui:define>
+
+        <ui:define name="outer">
+            <p:dialog widgetVar="examEditDialog" dynamic="true"
+                      header="Edit Exam" showEffect="clip" hideEffect="clip">
+                <h:form id="formExamDetail">
+                    <h:panelGrid id="examDetail" columns="2">
+                        <h:outputLabel for="weight" value="Weight:" />
+                        <p:inputText id="weight" value="#{examBean.selectedExam.weight}" required="true"/>
+
+                        <h:outputLabel for="grade" value="Grade:"/>
+                        <p:inputText id="grade" value="#{examBean.selectedExam.grade}" required="true"/>
+
+                        <h:outputLabel for="start-date" value="Start Date"/>
+                        <p:calendar  id="start-date" value="#{examBean.selectedExam.events.startdate}" pattern="MM/dd/yyyy HH:mm:ss" required="true"/>
+
+                        <h:outputLabel for="end-date" value="End Date"/>
+                        <p:calendar  id="end-date" value="#{examBean.selectedExam.events.enddate}" pattern="MM/dd/yyyy HH:mm:ss" required="true"/>
+
+                        <p:commandButton type="reset" value="Reset" />
+                        <p:commandButton id="examButton"
+                                         value="Save"
+                                         type="submit"
+                                         update="formExamDetail"
+                                         ajax="false"
+                                         actionListener="#{examBean.editExam}"/>
+                    </h:panelGrid>
+                </h:form>
+            </p:dialog>
+        </ui:define>
+
     </ui:composition>
-</h:body>
 </html>

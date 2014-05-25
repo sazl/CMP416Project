@@ -30,13 +30,16 @@ public class UserFacade extends AbstractFacade<User> {
     }
     
     public void addCourse(Course course, Event event) {
-        User u = getUser();
+
+        /*
         course.setEventsList(new ArrayList<Event>());
         em.persist(event);
         em.flush();
         course.getEventsList().add(event);
         u.getCoursesList().add(course);
+        */
         em.persist(course);
+        course.setUserid(getUser());
         em.flush();
     }
     

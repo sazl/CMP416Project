@@ -1,10 +1,9 @@
 package studyscheduler.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -73,7 +72,11 @@ public class CourseBean implements Serializable {
     public void addCourse(ActionEvent ev) {
         addedCourseEvent.setDescription(addedCourse.getName());
         addedCourseEvent.setName(addedCourse.getName());
-        user.addCourse(addedCourse, addedCourseEvent);
+        List<Event> events  = new ArrayList<>();
+        events.add(addedCourseEvent);
+        addedCourse.setEventsList(events);
+        addedCourse.setUserid(user.getUser());
+        course.create(addedCourse);
         RequestContext.getCurrentInstance().execute("PF('courseAddDialog').hide();");
     }
 
@@ -81,7 +84,7 @@ public class CourseBean implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         Course selectedCourse = getSelectedCourse();
         if (selectedCourse != null) {
-            user.deleteCourse(getSelectedCourse());
+            course.remove(selectedCourse);
             context.addMessage(null, new FacesMessage("Deleted Course"));
         } else {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error Deleting Course", "Database Error"));
@@ -132,8 +135,9 @@ public class CourseBean implements Serializable {
     }
 
     public void editCourse(ActionEvent e) {
-        course.editCourse(editedCourse, editedCourseEvent);
-        System.out.println(editedCourse + " " + editedCourseEvent);
+        int i = editedCourse.getEventsList().indexOf(editedCourseEvent);
+        editedCourse.getEventsList().set(i, editedCourseEvent);
+        course.edit(editedCourse);
         RequestContext.getCurrentInstance().execute("PF('courseEditDialog').hide();");
     }
 
@@ -145,13 +149,6 @@ public class CourseBean implements Serializable {
         this.courseDataTable = courseDataTable;
     }
 
-    public HtmlPanelGrid getAddDialog() {
-        return addDialog;
-    }
-
-    public void setAddDialog(HtmlPanelGrid addDialog) {
-        this.addDialog = addDialog;
-    }
 
 
     private Course editedCourse;
@@ -160,6 +157,5 @@ public class CourseBean implements Serializable {
     private Course addedCourse;
     private Event addedCourseEvent;
 
-    private HtmlPanelGrid addDialog;
     private DataTable courseDataTable;
 }

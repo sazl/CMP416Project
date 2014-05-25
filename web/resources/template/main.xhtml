@@ -16,7 +16,7 @@
             <div name="menu" class="header">
                 <ui:insert name="menu">
                     <h:form>
-                        <p:growl id="messages"/>
+                        <p:growl id="messages" showDetail="true" autoUpdate="true" life="3000"/>
                         <p:tabMenu activeIndex="#{sessionBean.mainTab}">
                             <p:menuitem value="Home" outcome="home" styleClass="ui-priority-primary" action="#{sessioBean.setMainTab(0)}"/>
                             <p:menuitem value="Schedule" outcome="schedule" action="#{sessioBean.setMainTab(1)}"/>
@@ -31,9 +31,6 @@
 
             <div class="header">
                 <ui:insert name="local-menu">
-                    <p:tabMenu activeIndex="${param.j}" rendered="false">
-
-                    </p:tabMenu>
                 </ui:insert>
             </div>
 

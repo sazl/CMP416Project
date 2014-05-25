@@ -66,9 +66,9 @@ public class Event implements Serializable {
     @Column(name = "REPEATEND")
     @Temporal(TemporalType.TIMESTAMP)
     private Date repeatend;
-    @ManyToMany(mappedBy = "eventsList")
+    @ManyToMany(mappedBy = "eventsList", cascade = CascadeType.ALL)
     private List<User> usersList;
-    @ManyToMany(mappedBy = "eventsList")
+    @ManyToMany(mappedBy = "eventsList", cascade = CascadeType.ALL)
     private List<Course> coursesList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "events")
     private List<Exam> examsList;

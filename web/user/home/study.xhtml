@@ -9,6 +9,7 @@
         <ui:define name="title">
             <title>Study</title>
         </ui:define>
+
         <ui:define name="content">
             <h:form>
                 <p:toolbar styleClass="header">
@@ -34,16 +35,16 @@
                              rowKey="#{study.id}"
                              selectionMode="single"
                              styleClass="inner-content">
-                    <p:column headerText="Study Name" sortBy="#{study.name}">
+                    <p:column headerText="Study Name">
                         <h:outputText value="#{study.name}"/>                            
                     </p:column>
-                    <p:column headerText="Description" sortBy="#{study.description}">
+                    <p:column headerText="Description">
                         <h:outputText value="#{study.description}"/>
                     </p:column>
-                    <p:column headerText="Start Date" sortBy="#{study.startdate}">
+                    <p:column headerText="Start Date">
                         <h:outputText value="#{study.startdate}"/>
                     </p:column>
-                    <p:column headerText="End Date" sortBy="#{study.enddate}">
+                    <p:column headerText="End Date">
                         <h:outputText value="#{study.enddate}"/>
                     </p:column>
 
@@ -70,12 +71,40 @@
                         <p:calendar id="end-date" value="#{studyBean.selectedStudy.enddate}" required="true" pattern="MM/dd/yyyy HH:mm:ss"/>
 
                         <p:commandButton type="reset" value="Reset" />
-                        <p:commandButton id="profileButton"
+                        <p:commandButton id="studyButton"
                                          value="Save"
                                          type="submit"
                                          update="formStudyDetail"
                                          ajax="false"
                                          actionListener="#{studyBean.editStudy}"/>
+                    </h:panelGrid>
+                </h:form>
+            </p:dialog>
+
+            <p:dialog widgetVar="studyAddDialog" dynamic="true"
+                      header="Add Study Period" showEffect="clip" hideEffect="clip">
+                <h:form id="formAddStudyDetail">
+                    <h:panelGrid id="addStudyDetail" columns="2">
+
+                        <h:outputLabel for="addName" value="Name:"/>
+                        <p:inputText id="addName" value="#{studyBean.addedStudy.name}" required="true"/>
+
+                        <h:outputLabel for="addDescription" value="Description:" />
+                        <p:inputText id="addDescription" value="#{studyBean.addedStudy.description}" required="true"/>
+
+                        <h:outputLabel for="addStart-date" value="Start Date:" />
+                        <p:calendar id="addStart-date" value="#{studyBean.addedStudy.startdate}" required="true" pattern="MM/dd/yyyy HH:mm:ss"/>
+
+                        <h:outputLabel for="addEnd-date" value="End Date:" />
+                        <p:calendar id="addEnd-date" value="#{studyBean.addedStudy.enddate}" required="true" pattern="MM/dd/yyyy HH:mm:ss"/>
+
+                        <p:commandButton type="reset" value="Reset" />
+                        <p:commandButton id="studyAddButton"
+                                         value="Save"
+                                         type="submit"
+                                         update="formStudyDetail"
+                                         ajax="false"
+                                         actionListener="#{studyBean.addStudy}"/>
                     </h:panelGrid>
                 </h:form>
             </p:dialog>

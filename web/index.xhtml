@@ -5,41 +5,28 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <title>Study Scheduler</title>
-    </h:head>
-    <h:body>
-        <ui:composition template="/resources/template/main.xhtml">
-            <ui:define name="content">
-                <p:panelGrid styleClass="inner-content">
-                    <f:facet name="header">
-                        <p:row>
-                            <p:column styleClass="ui-widget-header">ID</p:column>
-                        </p:row>
-                        <p:row>
-                            <p:column><p:outputLabel value="#{userBean.user.id}"/></p:column>
-                        </p:row>
-                        <p:row>
-                            <p:column styleClass="ui-widget-header">Username</p:column>
-                        </p:row>
-                        <p:row>
-                            <p:column>#{userBean.user.username}</p:column>
-                        </p:row>
-                        <p:row>
-                            <p:column styleClass="ui-widget-header">First Name</p:column>
-                        </p:row>
-                        <p:row>
-                            <p:column>#{userBean.user.firstname}</p:column>
-                        </p:row>
-                        <p:row>
-                            <p:column styleClass="ui-widget-header">Last Name</p:column>
-                        </p:row>
-                        <p:row>
-                            <p:column>#{userBean.user.lastname}</p:column>
-                        </p:row>
-                    </f:facet>                    
-                </p:panelGrid>
-            </ui:define>
-        </ui:composition>
-    </h:body>
+    <ui:composition template="/resources/template/main.xhtml">
+        <ui:define name="title">
+            <title>Study Schedule - Login</title>
+        </ui:define>
+
+        <ui:define name="content">
+            <p:panel header="Login" styleClass="inner-content" style="width: 40%">
+                <h:form>
+                    <h:panelGrid columns="2" cellpadding="5" style="margin: 0 auto">
+                        <h:outputLabel for="username" value="Username:" />
+                        <p:inputText id="username" value="#{loginBean.username}" required="true" label="username" />
+
+                        <h:outputLabel for="password" value="Password:" />
+                        <p:password id="password" value="#{loginBean.password}" required="true" label="password" />
+
+                        <f:facet name="footer">
+                            <p:commandButton value="Login" actionListener="#{loginBean.login}"
+                                             oncomplete="handleLoginRequest(xhr, status, args)" />
+                        </f:facet>
+                    </h:panelGrid>
+                </h:form>
+            </p:panel>
+        </ui:define>
+    </ui:composition>
 </html>

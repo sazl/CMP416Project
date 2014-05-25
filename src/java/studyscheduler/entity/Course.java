@@ -47,7 +47,7 @@ public class Course implements Serializable {
     @JoinTable(name = "COURSE_SCHEDULES", joinColumns = {
         @JoinColumn(name = "COURSEID", referencedColumnName = "ID")}, inverseJoinColumns = {
         @JoinColumn(name = "EVENTID", referencedColumnName = "ID")})
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Event> eventsList;
     @JoinColumn(name = "USERID", referencedColumnName = "ID")
     @ManyToOne

@@ -35,25 +35,31 @@
                 </ui:define>
 
                 <ui:define name="content">
-                    <h:form id="form">
-                        <p:growl id="messages" showDetail="true" />
-
+                    <h:form>
                         <p:schedule id="schedule" value="#{scheduleEventModel}" widgetVar="allSchedule">
-                            <p:ajax event="dateSelect" listener="#{scheduleBean.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show()" />
-                            <p:ajax event="eventSelect" listener="#{scheduleBean.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show()" />
-                            <p:ajax event="eventMove" listener="#{scheduleBean.onEventMove}" update="messages" />
-                            <p:ajax event="eventResize" listener="#{scheduleBean.onEventResize}" update="messages" />
+                            <p:ajax event="dateSelect" listener="#{scheduleBean.onDateSelect}"/>
+                            <p:ajax event="eventSelect" listener="#{scheduleBean.onEventSelect}"/>
+                            <p:ajax event="eventMove" listener="#{scheduleBean.onEventMove}"/>
+                            <p:ajax event="eventResize" listener="#{scheduleBean.onEventResize}" />
                         </p:schedule>
-
-                        <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
-
-                            <h:panelGrid id="eventDetails" columns="2">
-                            </h:panelGrid>
-
-                        </p:dialog>
-
                     </h:form>
+                </ui:define>
 
+                <ui:define name="outer">
+                    <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
+                        <h:form>
+                            <h:panelGrid id="eventDetails" columns="2">
+                                <h:outputLabel for="eventName" value="Name: "/>
+                                <h:outputText id="eventName" value="#{scheduleBean.selectedEvent.title}"/>
+
+                                <h:outputLabel for="eventStart" value="Start: "/>
+                                <h:outputText id="eventStart" value="#{scheduleBean.selectedEvent.startDate}"/>
+
+                                <h:outputLabel for="eventEnd" value="End: "/>
+                                <h:outputText id="eventEnd" value="#{scheduleBean.selectedEvent.endDate}"/>
+                            </h:panelGrid>
+                        </h:form>
+                    </p:dialog>
                 </ui:define>
             </ui:composition>
         </f:view>
